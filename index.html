@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autovalores y autovectores | Blog de matemáticas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Autovalores y autovectores</h1>
+        <div class="subhead">El latido lineal de la naturaleza, la economía y la ingeniería</div>
+    </header>
+
+    <!-- 1. Introducción -->
+    <section>
+        <p>Imaginemos que una matriz no es solo una tabla de números, sino una <strong>transformación</strong>: estira, encoge, rota o voltea el espacio. Dentro de esa transformación hay direcciones privilegiadas, vectores que solo se alargan o acortan, sin cambiar su orientación. Esos vectores son los <strong>autovectores</strong>; el factor de estiramiento es el <strong>autovalor</strong>.</p>
+        <p>Este concepto, aparentemente abstracto, late bajo la piel de disciplinas muy concretas. En <strong>economía</strong> aparecen en modelos de crecimiento y en el análisis de insumo‑producto de Leontief (premio Nobel). En <strong>física</strong> son los estados estacionarios de la ecuación de Schrödinger y las frecuencias propias de una estructura vibrante. En <strong>ingeniería</strong> permiten entender la estabilidad de un puente o reducir la dimensionalidad de millones de datos (PCA). Con esta pequeña guía, desentrañaremos su esencia paso a paso, con ejemplos que caben en una servilleta.</p>
+    </section>
+
+    <!-- 2. Definición de autovalores y autovectores -->
+    <section>
+        <h2> Definición: la ecuación Av = λv</h2>
+        <p>Sea <strong>A</strong> una matriz cuadrada de tamaño n×n. Decimos que un vector <strong>v</strong> (no nulo) es un <strong>autovector</strong> de A si existe un número (real o complejo) λ tal que:</p>
+        <div style="background: #eef4f9; padding: 1rem; border-radius: 12px; font-size: 1.4rem; text-align: center; margin: 1.5rem 0;">
+            <strong>A · v = λ · v</strong>
+        </div>
+        <p>Ese número λ es el <strong>autovalor</strong> asociado al autovector v. Geométricamente, significa que la transformación A, aplicada a v, produce un vector paralelo a v (o antiparalelo si λ es negativo).</p>
+
+        <h3>Ejemplo sencillo (matriz 2×2)</h3>
+        <div class="example-box">
+            <p><strong>Matriz:</strong>   A = ⎡2 1⎤   (escribimos por filas: [2,1; 1,2])<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣1 2⎦</p>
+            <p>Tomemos v₁ = [1, 1] (vector fila, pero lo tratamos como columna). Entonces:</p>
+            <p>A·v₁ = [2·1 + 1·1 , 1·1 + 2·1] = [3, 3] = 3·[1, 1] = 3·v₁.</p>
+            <p>Por tanto, <strong>λ₁ = 3</strong> es un autovalor y v₁ su autovector.</p>
+            <p>Probemos con v₂ = [1, -1]: A·v₂ = [2·1 + 1·(-1), 1·1 + 2·(-1)] = [1, -1] = 1·v₂.</p>
+            <p>Así, <strong>λ₂ = 1</strong> es el segundo autovalor, con autovector v₂.</p>
+        </div>
+        <p>Un mismo autovalor puede tener múltiples autovectores (de hecho, todo el plano menos el origen si λ es el mismo para dos direcciones independientes). Pero empecemos con el cálculo sistemático.</p>
+    </section>
+
+    <!-- 3. Cálculo de autovalores y autovectores -->
+    <section>
+        <h2> Cálculo: el polinomio característico</h2>
+        <p>Para obtener los autovalores de una matriz A, reagrupamos la ecuación Av = λv como:</p>
+        <div style="background: #eef4f9; padding: 0.8rem; border-radius: 12px; font-size: 1.3rem; text-align: center; margin: 1.5rem 0;">
+            (A − λI) v = 0
+        </div>
+        <p>donde I es la matriz identidad. Para que exista un vector v no nulo, la matriz (A − λI) debe ser <strong>singular</strong> (determinante cero). Así llegamos a la <strong>ecuación característica</strong>:</p>
+        <div style="background: #eef4f9; padding: 0.8rem; border-radius: 12px; font-size: 1.3rem; text-align: center; margin: 1.5rem 0;">
+            det(A − λI) = 0
+        </div>
+
+        <h3>Ejemplo paso a paso con la misma matriz</h3>
+        <div class="example-box">
+            <p>A = [[2, 1], [1, 2]]  →  A − λI = [[2−λ, 1], [1, 2−λ]]</p>
+            <p>Determinante: (2−λ)(2−λ) − 1·1 = (2−λ)² − 1.</p>
+            <p>Igualamos a cero: (2−λ)² − 1 = 0 → (2−λ)² = 1 → 2−λ = ±1.</p>
+            <p><strong>Casos:</strong><br>
+            • 2−λ = 1  → λ = 1<br>
+            • 2−λ = −1 → λ = 3</p>
+            <p>Obtenemos los dos autovalores esperados: λ₁ = 3, λ₂ = 1.</p>
+            <p>Para hallar los autovectores resolvemos (A − λI)v = 0 con cada λ.</p>
+            <p><em>λ = 3:</em>  A−3I = [[−1, 1], [1, −1]]. El sistema: −x + y = 0  →  y = x.  Autovector: (1,1) (o cualquier múltiplo).</p>
+            <p><em>λ = 1:</em>  A−1I = [[1, 1], [1, 1]]. Ecuación: x + y = 0 → y = −x. Autovector: (1,−1).</p>
+        </div>
+        <p>Este procedimiento es general: primero raíces del polinomio característico, después resolver el sistema homogéneo.</p>
+    </section>
+
+    <!-- 4. Diagonalización de una matriz -->
+    <section>
+        <h2> Diagonalización: A = P D P⁻¹</h2>
+        <p>Cuando una matriz A tiene suficientes autovectores (n autovectores linealmente independientes para una matriz n×n), podemos <strong>diagonalizarla</strong>. Esto significa encontrar una matriz invertible P (cuyas columnas son los autovectores) y una matriz diagonal D (con los autovalores en la diagonal) tales que:</p>
+        <div style="background: #f4eef9; padding: 0.8rem; border-radius: 12px; font-size: 1.3rem; text-align: center; margin: 1.5rem 0;">
+            A = P D P⁻¹   &nbsp; o equivalentemente &nbsp; D = P⁻¹ A P
+        </div>
+        <p>Diagonalizar simplifica enormemente los cálculos: elevar A a una potencia, resolver sistemas dinámicos, etc.</p>
+
+        <h3>Ejemplo con nuestra matriz</h3>
+        <div class="example-box">
+            <p>Autovectores: v₁ = (1,1) para λ=3 ; v₂ = (1,−1) para λ=1.</p>
+            <p>Construimos P = ⎡1 1⎤  (columnas: primero v₁, luego v₂)<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣1 −1⎦</p>
+            <p>La diagonal D = diag(3, 1) = ⎡3 0⎤<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣0 1⎦</p>
+            <p>Verifiquemos (opcional) que A = P D P⁻¹. Calculamos P⁻¹ para esta matriz simple:</p>
+            <p>P⁻¹ = (1/det(P)) · ⎡−1 −1⎤<sup>T</sup>?  det(P) = (1)(−1) − (1)(1) = −2. Mejor escribamos la inversa conocida:<br>
+               &nbsp;&nbsp;P⁻¹ = (1/2)⎡ 1 1⎤<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 1 −1⎦  (comprobación: P·P⁻¹ = I).</p>
+            <p>Efectivamente, P D P⁻¹ reproduce A. La diagonalización es una factorización poderosa.</p>
+        </div>
+        <p>No todas las matrices son diagonalizables (por ejemplo, si faltan autovectores, como en los bloques de Jordan). La condición necesaria y suficiente es que exista una base de autovectores.</p>
+    </section>
+
+    <!-- 5. Espacios propios -->
+    <section>
+        <h2>  Espacios propios (o autoespacios)</h2>
+        <p>Para un autovalor λ, el <strong>espacio propio</strong> asociado es el conjunto de todos los vectores que satisfacen (A − λI)v = 0, es decir, el núcleo de (A − λI). Siempre contiene al autovector y al vector cero, y forma un subespacio vectorial.</p>
+        <p>Su dimensión (número de autovectores linealmente independientes para ese λ) se llama <strong>multiplicidad geométrica</strong>, y nunca supera la multiplicidad algebraica (la multiplicidad de λ como raíz del polinomio característico).</p>
+
+        <h3>Ejemplo ilustrativo</h3>
+        <div class="example-box">
+            <p>Con la matriz A = [[2,1],[1,2]], para λ=3 resolvimos (A−3I)v=0:</p>
+            <p>Ecuación: −x + y = 0 → y = x. El espacio propio E₃ = { t·(1,1) | t ∈ ℝ }. Es una recta (dimensión 1).</p>
+            <p>Para λ=1: (A−1I)v=0 → x + y = 0 → y = −x. El espacio E₁ = { t·(1,−1) | t ∈ ℝ }, también dimensión 1.</p>
+            <p>Sumando ambas direcciones obtenemos todo ℝ², por eso la matriz es diagonalizable.</p>
+        </div>
+        <p>Imaginemos una matriz con un autovalor doble pero un solo autovector independiente (p. ej. [[2,1],[0,2]]). El espacio propio sería solo una recta, y la matriz no sería diagonalizable (solo podemos obtener su forma canónica de Jordan).</p>
+    </section>
+
+    <!-- 6. Conclusión -->
+    <section>
+        <h2>  Importancia</h2>
+        <p>Hemos recorrido el camino desde la definición intuitiva hasta herramientas concretas: la ecuación característica, el cálculo de autovectores, la diagonalización y los espacios propios. Con una matriz 2×2 sencilla hemos visto todo el proceso.</p>
+        <p>Pero el verdadero valor está en las aplicaciones: la <strong>mecánica cuántica</strong> es una historia continua de autovalores (observables) y autovectores (estados); el <strong>algoritmo PageRank</strong> de Google se basa en el autovector principal de una matriz gigante; la <strong>estabilidad de un ecosistema</strong> se analiza con los autovalores de su matriz de interacciones. Incluso la compresión de imágenes o el reconocimiento facial (PCA) utilizan esta descomposición.</p>
+        <p>Dominar los conceptos de autovalores y autovectores es abrir una puerta a las matemáticas aplicadas modernas. Y como has visto, todo arranca de la sencilla idea de buscar direcciones que la transformación sólo estira. El resto es álgebra lineal… y un poco de práctica.</p>
+        <div class="note">
+            <p><strong> Resumen rápido</strong><br>
+            • Autovector v ≠ 0 :  A v = λ v<br>
+            • λ se obtiene de  det(A − λI)=0<br>
+            • Para cada λ, los autovectores forman un espacio propio<br>
+            • Si hay n autovectores independientes, A es diagonalizable:  A = P D P⁻¹</p>
+        </div>
+    </section>
+
+    <footer>
+        <p> Andrea Hernández, Julio Ochoa · Blog divulgativo · © 2026 · Todos los números reservados</p>
+    </footer>
+</div>
+</body>
+</html>
